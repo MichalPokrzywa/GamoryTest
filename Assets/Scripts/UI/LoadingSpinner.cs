@@ -6,8 +6,6 @@ public class LoadingSpinner : MonoBehaviour
 {
     public RectTransform loadingSpinner;
     public GameObject background;
-    // Start is called before the first frame update
-    private Tween rotationTween;
     public static UnityAction OnLoadingStart;
     public static UnityAction OnLoadingEnd;
     void Awake()
