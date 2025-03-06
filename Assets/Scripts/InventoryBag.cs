@@ -7,7 +7,7 @@ public class InventoryBag : MonoBehaviour
 {
     public Transform itemContainer;
     public GameObject itemPrefab;
-
+    public CanvasGroup canvasGroup;
     public IEnumerator CreateItems(ItemData itemData)
     {
         foreach (Item item in itemData.Items)
@@ -17,6 +17,16 @@ public class InventoryBag : MonoBehaviour
         }
 
         yield return null;
-    } 
+    }
+
+    public void AddItemToInventory(GameObject item)
+    {
+        item.transform.SetParent(itemContainer);
+    }
+
+    public void TurnCanvasGroup(bool value)
+    {
+        canvasGroup.blocksRaycasts = value;
+    }
 
 }
