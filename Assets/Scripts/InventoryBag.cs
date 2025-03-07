@@ -2,47 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InventoryBag : MonoBehaviour
 {
-    public Transform itemContainer;
+    [Header("Prefabs")]
     public GameObject itemPrefab;
     public GameObject slotPrefab;
-    public CanvasGroup canvasGroup;
-    public List<InventoryItem> itemsInInventory = new List<InventoryItem>();
-    public IEnumerator CreateItems(ItemData itemData)
+    public Transform itemContainer;
+    [Header("Inventory Sorter")]
+    public BagSorter sorter;
+    private List<InventoryItem> itemsInInventory = new List<InventoryItem>();
+    private List<BagSlot> slotsInInventory = new List<BagSlot>();
+    public IEnumerator CreateItems(ItemData itemData,UnityAction onComplete)
     {
         foreach (Item item in itemData.Items)
         {
             GameObject slotObject = Instantiate(slotPrefab, itemContainer);
             GameObject itemObject = Instantiate(itemPrefab, slotObject.transform);
             InventoryItem tempItem = itemObject.GetComponent<InventoryItem>();
+            BagSlot tempSlot = slotObject.GetComponent<BagSlot>();
             tempItem.AssignItem(item);
+            slotsInInventory.Add(tempSlot);
             //tempItem.tableId = tempItem.transform.GetSiblingIndex();
             slotObject.GetComponent<BagSlot>().AssignItemInSlot(itemObject);
             itemsInInventory.Add(tempItem);
+            yield return null;
         }
 
-        yield return null;
+        sorter.Initialize(slotsInInventory);
+        onComplete.Invoke();
     }
 
-    public void AddItemToInventory(GameObject item)
+    public List<BagSlot> GetSlotList()
     {
-        item.transform.SetParent(itemContainer);
-        //item.transform.SetSiblingIndex(item.GetComponent<InventoryItem>().tableId);
-    }
-
-    public void TurnCanvasGroup(bool value)
-    {
-        canvasGroup.blocksRaycasts = value;
-    }
-
-    public void UpdateItemsIndexInTable()
-    {
-        foreach (InventoryItem item in itemsInInventory)
-        {
-            //item.tableId = item.transform.GetSiblingIndex();
-        }
+        return slotsInInventory;
     }
 
 }

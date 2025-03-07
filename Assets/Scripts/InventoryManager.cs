@@ -14,8 +14,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
     private async void Start()
     {
         LoadingSpinner.OnLoadingStart.Invoke();
-        StartCoroutine(inventoryBagManager.CreateItems(await itemLoader.FetchItems()));
-        LoadingSpinner.OnLoadingEnd.Invoke();
+        StartCoroutine(inventoryBagManager.CreateItems(await itemLoader.FetchItems(),LoadingSpinner.OnLoadingEnd));
     }
 
     void Update()
@@ -42,7 +41,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
             {
                 PickUpItem(clickedItem);
             }
-
         }
     }
 
@@ -64,7 +62,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
         {
             if (clickedItem.transform.parent.GetComponent<BagSlot>() != null)
             {
-
                 AssignItemToSlot(clickedItem.transform.parent.GetComponent<BagSlot>(), clickedItem);
             }
             else if (IsMatchingCategory(clickedItem.transform.parent.GetComponent<CharacterSlot>()))
@@ -96,6 +93,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
             PickUpItem(newPickedItem);
         }
     }
+
     private void PickUpItem(GameObject clickedItem)
     {
         InventoryItem inventoryItem = clickedItem.GetComponent<InventoryItem>();
@@ -107,6 +105,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
             characterInventory.LightUpCategory(pickedItem.GetComponent<InventoryItem>().GetItem().Category);
         }
     }
+
     private bool IsMatchingCategory(CharacterSlot slot)
     {
         return pickedItem.GetComponent<InventoryItem>().GetItem().Category == slot.slotType;

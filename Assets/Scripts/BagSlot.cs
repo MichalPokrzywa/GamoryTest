@@ -21,10 +21,23 @@ public class BagSlot : MonoBehaviour
         }
     }
 
+    public bool HasItem()
+    {
+        if (slottedItem != null)
+            return true;
+        return false;
+    }
+
+    public Item GetItem()
+    {
+        return slottedItem;
+    }
+
     private void HandleItemRemoved(InventoryItem item)
     {
         slottedObject = null;
         slottedItem = null;
         item.GetComponent<ItemParentChange>().OnRemovedFromSlot -= HandleItemRemoved;
     }
+
 }
