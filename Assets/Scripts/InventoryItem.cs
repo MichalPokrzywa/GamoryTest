@@ -14,4 +14,9 @@ public class InventoryItem : MonoBehaviour
         itemIcon.sprite = item.Icon;
         itemRarity.sprite = RarityLoader.GetTextureToLoad(item.Rarity);
     }
+
+    public Item GetItem()
+    {
+        return item;
+    }
 }

@@ -41,13 +41,18 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
                     pickedItem.GetComponent<Image>().raycastTarget = true;
                     inventoryBagManager.TurnCanvasGroup(true);
                     pickedItem = null;
+                    characterInventory.LightDownCategories();
                 }
                 else if (clickedItem.GetComponent<CharacterSlot>() != null)
                 {
-                    clickedItem.GetComponent<CharacterSlot>().AssignItemInSlot(pickedItem);
-                    pickedItem.GetComponent<Image>().raycastTarget = true;
-                    inventoryBagManager.TurnCanvasGroup(true);
-                    pickedItem = null;
+                    if (clickedItem.GetComponent<CharacterSlot>().slotType ==
+                        pickedItem.GetComponent<InventoryItem>().GetItem().Category)
+                    {
+                        clickedItem.GetComponent<CharacterSlot>().AssignItemInSlot(pickedItem);
+                        pickedItem.GetComponent<Image>().raycastTarget = true;
+                        inventoryBagManager.TurnCanvasGroup(true);
+                        pickedItem = null;
+                    }
                 }
             }
             else
@@ -58,6 +63,8 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
                     pickedItem = clickedItem;
                     pickedItem.GetComponent<Image>().raycastTarget = false;
                     pickedItem.transform.SetParent(this.transform);
+                    characterInventory.LightUpCategory(pickedItem.GetComponent<InventoryItem>().GetItem().Category);
+
                 }
             }
 

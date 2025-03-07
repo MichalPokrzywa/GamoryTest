@@ -370,8 +370,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5be4320d448dd9040a0c9abd3f40f100, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -400,8 +400,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6599ce6c9ee4a4a9bbdcabcaef1948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slottedItem: {fileID: 0}
-  slotType: 4
+  imageSlot: {fileID: 70988246}
+  slottedObject: {fileID: 0}
+  slotType: Ring
+  slottedItem:
+    Name: 
+    Category: 
+    Rarity: 0
+    Damage: 0
+    HealthPoints: 0
+    Defense: 0
+    LifeSteal: 0
+    CriticalStrikeChance: 0
+    AttackSpeed: 0
+    MovementSpeed: 0
+    Luck: 0
+    Icon: {fileID: 0}
 --- !u!1 &158365115
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,8 +476,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5be4320d448dd9040a0c9abd3f40f100, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -492,8 +506,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6599ce6c9ee4a4a9bbdcabcaef1948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slottedItem: {fileID: 0}
-  slotType: 2
+  imageSlot: {fileID: 158365117}
+  slottedObject: {fileID: 0}
+  slotType: Boots
+  slottedItem:
+    Name: 
+    Category: 
+    Rarity: 0
+    Damage: 0
+    HealthPoints: 0
+    Defense: 0
+    LifeSteal: 0
+    CriticalStrikeChance: 0
+    AttackSpeed: 0
+    MovementSpeed: 0
+    Luck: 0
+    Icon: {fileID: 0}
 --- !u!1 &321173126
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,6 +1024,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 8428531711961380001, guid: bcae46f5bf28465418f62e5121ea2377,
     type: 3}
   canvasGroup: {fileID: 1757172242}
+  itemsInInventory: []
 --- !u!114 &520237158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1540,8 +1569,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5be4320d448dd9040a0c9abd3f40f100, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1570,8 +1599,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6599ce6c9ee4a4a9bbdcabcaef1948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slottedItem: {fileID: 0}
-  slotType: 1
+  imageSlot: {fileID: 760183187}
+  slottedObject: {fileID: 0}
+  slotType: Armor
+  slottedItem:
+    Name: 
+    Category: 
+    Rarity: 0
+    Damage: 0
+    HealthPoints: 0
+    Defense: 0
+    LifeSteal: 0
+    CriticalStrikeChance: 0
+    AttackSpeed: 0
+    MovementSpeed: 0
+    Luck: 0
+    Icon: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2661,8 +2704,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5be4320d448dd9040a0c9abd3f40f100, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2691,8 +2734,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6599ce6c9ee4a4a9bbdcabcaef1948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slottedItem: {fileID: 0}
-  slotType: 0
+  imageSlot: {fileID: 1881626751}
+  slottedObject: {fileID: 0}
+  slotType: Helmet
+  slottedItem:
+    Name: 
+    Category: 
+    Rarity: 0
+    Damage: 0
+    HealthPoints: 0
+    Defense: 0
+    LifeSteal: 0
+    CriticalStrikeChance: 0
+    AttackSpeed: 0
+    MovementSpeed: 0
+    Luck: 0
+    Icon: {fileID: 0}
 --- !u!1 &1932738418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2844,8 +2901,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5be4320d448dd9040a0c9abd3f40f100, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2874,8 +2931,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6599ce6c9ee4a4a9bbdcabcaef1948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slottedItem: {fileID: 0}
-  slotType: 3
+  imageSlot: {fileID: 1974835733}
+  slottedObject: {fileID: 0}
+  slotType: Necklace
+  slottedItem:
+    Name: 
+    Category: 
+    Rarity: 0
+    Damage: 0
+    HealthPoints: 0
+    Defense: 0
+    LifeSteal: 0
+    CriticalStrikeChance: 0
+    AttackSpeed: 0
+    MovementSpeed: 0
+    Luck: 0
+    Icon: {fileID: 0}
 --- !u!1 &2016118290
 GameObject:
   m_ObjectHideFlags: 0
@@ -2936,8 +3007,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5be4320d448dd9040a0c9abd3f40f100, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2966,8 +3037,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6599ce6c9ee4a4a9bbdcabcaef1948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slottedItem: {fileID: 0}
-  slotType: 5
+  imageSlot: {fileID: 2016118292}
+  slottedObject: {fileID: 0}
+  slotType: Weapon
+  slottedItem:
+    Name: 
+    Category: 
+    Rarity: 0
+    Damage: 0
+    HealthPoints: 0
+    Defense: 0
+    LifeSteal: 0
+    CriticalStrikeChance: 0
+    AttackSpeed: 0
+    MovementSpeed: 0
+    Luck: 0
+    Icon: {fileID: 0}
 --- !u!1 &2039277107
 GameObject:
   m_ObjectHideFlags: 0
