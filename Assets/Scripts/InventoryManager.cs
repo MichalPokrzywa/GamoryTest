@@ -52,6 +52,31 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
                         pickedItem = null;
                     }
                 }
+                else if (clickedItem.GetComponent<InventoryItem>() != null)
+                {
+                    if (clickedItem.transform.parent.GetComponent<BagSlot>() != null)
+                    {
+                        clickedItem.transform.parent.GetComponent<BagSlot>().AssignItemInSlot(pickedItem);
+                        pickedItem.GetComponent<Image>().raycastTarget = true;
+                        pickedItem = clickedItem;
+                        characterInventory.LightDownCategories();
+                        pickedItem.GetComponent<Image>().raycastTarget = false;
+                        pickedItem.transform.SetParent(this.transform);
+                        characterInventory.LightUpCategory(pickedItem.GetComponent<InventoryItem>().GetItem().Category);
+                    }
+                    else if (clickedItem.transform.parent.GetComponent<CharacterSlot>().slotType ==
+                             pickedItem.GetComponent<InventoryItem>().GetItem().Category)
+                    {
+                        clickedItem.transform.parent.GetComponent<CharacterSlot>().AssignItemInSlot(pickedItem);
+                        pickedItem.GetComponent<Image>().raycastTarget = true;
+                        pickedItem = clickedItem;
+                        characterInventory.LightDownCategories();
+                        pickedItem.GetComponent<Image>().raycastTarget = false;
+                        pickedItem.transform.SetParent(this.transform);
+                        characterInventory.LightUpCategory(pickedItem.GetComponent<InventoryItem>().GetItem().Category);
+                    }
+
+                }
             }
             else
             {
@@ -61,7 +86,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
                     pickedItem.GetComponent<Image>().raycastTarget = false;
                     pickedItem.transform.SetParent(this.transform);
                     characterInventory.LightUpCategory(pickedItem.GetComponent<InventoryItem>().GetItem().Category);
-
                 }
             }
 
