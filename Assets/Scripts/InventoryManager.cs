@@ -35,11 +35,10 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
 
             if (pickedItem != null)
             {
-                if (clickedItem == inventoryBagManager.gameObject)
+                if (clickedItem.GetComponent<BagSlot>())
                 {
-                    inventoryBagManager.AddItemToInventory(pickedItem);
+                    clickedItem.GetComponent<BagSlot>().AssignItemInSlot(pickedItem);
                     pickedItem.GetComponent<Image>().raycastTarget = true;
-                    inventoryBagManager.TurnCanvasGroup(true);
                     pickedItem = null;
                     characterInventory.LightDownCategories();
                 }
@@ -50,7 +49,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
                     {
                         clickedItem.GetComponent<CharacterSlot>().AssignItemInSlot(pickedItem);
                         pickedItem.GetComponent<Image>().raycastTarget = true;
-                        inventoryBagManager.TurnCanvasGroup(true);
                         pickedItem = null;
                     }
                 }
@@ -59,7 +57,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
             {
                 if (clickedItem.GetComponent<InventoryItem>() != null)
                 {
-                    inventoryBagManager.TurnCanvasGroup(false);
                     pickedItem = clickedItem;
                     pickedItem.GetComponent<Image>().raycastTarget = false;
                     pickedItem.transform.SetParent(this.transform);

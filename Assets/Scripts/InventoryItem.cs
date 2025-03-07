@@ -7,7 +7,7 @@ public class InventoryItem : MonoBehaviour
     [SerializeField] private Image itemRarity;
     private Item item;
 
-    public int tableId;
+
     public void AssignItem(Item CommingItem)
     {
         item = CommingItem;

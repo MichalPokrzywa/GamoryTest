@@ -1023,6 +1023,8 @@ MonoBehaviour:
   itemContainer: {fileID: 1757172239}
   itemPrefab: {fileID: 8428531711961380001, guid: bcae46f5bf28465418f62e5121ea2377,
     type: 3}
+  slotPrefab: {fileID: 559969195148683542, guid: 12d658bbd8ec74b4cbadc77330cc1552,
+    type: 3}
   canvasGroup: {fileID: 1757172242}
   itemsInInventory: []
 --- !u!114 &520237158
