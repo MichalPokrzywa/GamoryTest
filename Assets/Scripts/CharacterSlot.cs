@@ -14,8 +14,14 @@ public class CharacterSlot : MonoBehaviour
         Weapon = 5,
     }
 
-    public GameObject slottedItem;
+    public GameObject slottedObject;
     public SlotType slotType;
+    public Item slottedItem;
 
-
+    public void AssignItemInSlot(GameObject item)
+    {
+        slottedObject = item;
+        slottedObject.transform.SetParent(this.transform);
+        slottedObject.transform.localPosition = Vector3.zero;
+    }
 }

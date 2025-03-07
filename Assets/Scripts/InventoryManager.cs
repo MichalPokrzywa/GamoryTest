@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -37,6 +38,13 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
                 if (clickedItem == inventoryBagManager.gameObject)
                 {
                     inventoryBagManager.AddItemToInventory(pickedItem);
+                    pickedItem.GetComponent<Image>().raycastTarget = true;
+                    inventoryBagManager.TurnCanvasGroup(true);
+                    pickedItem = null;
+                }
+                else if (clickedItem.GetComponent<CharacterSlot>() != null)
+                {
+                    clickedItem.GetComponent<CharacterSlot>().AssignItemInSlot(pickedItem);
                     pickedItem.GetComponent<Image>().raycastTarget = true;
                     inventoryBagManager.TurnCanvasGroup(true);
                     pickedItem = null;
