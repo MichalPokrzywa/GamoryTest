@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CharacterSlot : MonoBehaviour
@@ -7,7 +8,7 @@ public class CharacterSlot : MonoBehaviour
     public GameObject slottedObject;
     public string slotType;
     public Item slottedItem;
-
+    public UnityAction OnItemSlotChange;
     public void AssignItemInSlot(GameObject item)
     {
         slottedObject = item;
@@ -19,6 +20,7 @@ public class CharacterSlot : MonoBehaviour
         {
             slotItem.OnRemovedFromSlot += HandleItemRemoved;
         }
+        OnItemSlotChange.Invoke();
         HideSlot();
     }
 
@@ -34,9 +36,13 @@ public class CharacterSlot : MonoBehaviour
 
     private void HandleItemRemoved(InventoryItem item)
     {
-        slottedObject = null;
-        slottedItem = null;
+        if (slottedItem == item.GetItem())
+        {
+            slottedItem = null;
+            slottedObject = null;
+        }
         item.GetComponent<ItemParentChange>().OnRemovedFromSlot -= HandleItemRemoved;
+        OnItemSlotChange.Invoke();
         ShowSlot();
     }
 }

@@ -67,7 +67,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
         }
     }
 
-
     #region PointerDownMethods
 
     private void HandleItemPlacement(GameObject clickedItem)
@@ -137,6 +136,5 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
     {
         return pickedItem.GetComponent<InventoryItem>().GetItem().Category == slot.slotType;
     }
-
 
 }
