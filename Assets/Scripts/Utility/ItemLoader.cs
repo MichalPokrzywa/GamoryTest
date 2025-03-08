@@ -57,9 +57,9 @@ public static class RarityLoader
     {
         { 0,new RarityTexture(0,"Textures/Items/Rarity/CardInDeckListCommonUI")  },
         { 1,new RarityTexture(1,"Textures/Items/Rarity/CardInDeckListUncommonUI") },
-        { 2,new RarityTexture(2, "Textures/Items/Rarity/CardInDeckListEpicUI") },
-        { 3,new RarityTexture(3, "Textures/Items/Rarity/CardInDeckListRareUI")},
-        { 4,new RarityTexture(4, "Textures/Items/Rarity/CardInDeckListRareUI")}
+        { 2,new RarityTexture(2, "Textures/Items/Rarity/CardInDeckListRareUI") },
+        { 3,new RarityTexture(3, "Textures/Items/Rarity/CardInDeckListEpicUI")},
+        { 4,new RarityTexture(4, "Textures/Items/Rarity/CardInDeckListLegendaryUI")}
     };
     public static Sprite GetTextureIconToLoad(int rarity)
     {

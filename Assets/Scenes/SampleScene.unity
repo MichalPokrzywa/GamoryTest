@@ -3595,13 +3595,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1193950904}
   - component: {fileID: 1193950905}
+  - component: {fileID: 1193950906}
+  - component: {fileID: 1193950907}
   m_Layer: 5
   m_Name: ShowItemStats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1193950904
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3642,7 +3644,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbb5d0bc789bde4281c163d3b2a823d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverUI: {fileID: 1193950906}
   hoverTime: 1
+--- !u!114 &1193950906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193950903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4935f845dd78aef41a73c4d16ba9300d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 1973535901}
+  itemBackground: {fileID: 1907513222}
+  itemNameBackground: {fileID: 502624556}
+  itemName: {fileID: 1855802031}
+  itemHp: {fileID: 1412756971}
+  itemDamage: {fileID: 1291978996}
+  itemAttackSpeed: {fileID: 1345529716}
+  itemCritChance: {fileID: 1221753657}
+  itemMoveSpeed: {fileID: 11723036}
+--- !u!225 &1193950907
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193950903}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1214842928
 GameObject:
   m_ObjectHideFlags: 0

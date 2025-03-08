@@ -24,7 +24,6 @@ public class InventoryBag : MonoBehaviour
             BagSlot tempSlot = slotObject.GetComponent<BagSlot>();
             tempItem.AssignItem(item);
             slotsInInventory.Add(tempSlot);
-            //tempItem.tableId = tempItem.transform.GetSiblingIndex();
             slotObject.GetComponent<BagSlot>().AssignItemInSlot(itemObject);
             itemsInInventory.Add(tempItem);
             yield return null;
