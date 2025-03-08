@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,6 +16,13 @@ public class CharacterInventory : MonoBehaviour
         {
             slot.OnItemSlotChange += UpdateStats;
         }
+
+        stats.BaseDamage = Random.Range(5, 20);
+        stats.BaseHP = Random.Range(10, 25);
+        stats.BaseCritChance = Random.Range(0f, 10f);
+        stats.BaseAttackSpeed = Random.Range(5f, 20f);
+        stats.BaseMoveSpeed = Random.Range(0f, 20f);
+        characterStatsUI.InitStats(stats);
     }
 
     private void UpdateStats()
@@ -35,11 +43,11 @@ public class CharacterInventory : MonoBehaviour
                 tempMoveSpeed += slot.slottedItem.MovementSpeed;
             }
         }
-        stats.HP = tempHP;
-        stats.Damage = tempDamage;
-        stats.AttackSpeed = tempAttackSpeed;
-        stats.CritChance = tempCritChance;
-        stats.MoveSpeed = tempMoveSpeed;
+        stats.BonusHP = tempHP;
+        stats.BonusDamage = tempDamage;
+        stats.BonusAttackSpeed = tempAttackSpeed;
+        stats.BonusCritChance = tempCritChance;
+        stats.BonusMoveSpeed = tempMoveSpeed;
         characterStatsUI.UpdateStatsOnUI(stats);
     }
 
