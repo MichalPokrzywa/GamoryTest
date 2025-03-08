@@ -44,18 +44,45 @@ public class ItemLoader
 
 public static class RarityLoader
 {
-    public static Dictionary<int, string> RarityDictionary = new Dictionary<int, string>()
+    public static Dictionary<int, RarityTexture> RarityItemDictionary = new Dictionary<int, RarityTexture>()
     {
-        { 0,"Textures/Items/Rarity/ItemRarityCommon" },
-        { 1,"Textures/Items/Rarity/ItemRarityUncommon" },
-        { 2,"Textures/Items/Rarity/ItemRarityRare" },
-        { 3,"Textures/Items/Rarity/ItemRarityEpic"},
-        { 4,"Textures/Items/Rarity/ItemRarityLegendary"}
+        { 0,new RarityTexture(0,"Textures/Items/Rarity/ItemRarityCommon")  },
+        { 1,new RarityTexture(1,"Textures/Items/Rarity/ItemRarityUncommon") },
+        { 2,new RarityTexture(2, "Textures/Items/Rarity/ItemRarityRare") },
+        { 3,new RarityTexture(3, "Textures/Items/Rarity/ItemRarityEpic")},
+        { 4,new RarityTexture(4, "Textures/Items/Rarity/ItemRarityLegendary")}
     };
 
-    public static Sprite GetTextureToLoad(int rarity)
+    public static Dictionary<int, RarityTexture> RarityItemBackgroundDictionary = new Dictionary<int, RarityTexture>()
     {
-        return Resources.Load<Sprite>(RarityDictionary[rarity]);
+        { 0,new RarityTexture(0,"Textures/Items/Rarity/CardInDeckListCommonUI")  },
+        { 1,new RarityTexture(1,"Textures/Items/Rarity/CardInDeckListUncommonUI") },
+        { 2,new RarityTexture(2, "Textures/Items/Rarity/CardInDeckListEpicUI") },
+        { 3,new RarityTexture(3, "Textures/Items/Rarity/CardInDeckListRareUI")},
+        { 4,new RarityTexture(4, "Textures/Items/Rarity/CardInDeckListRareUI")}
+    };
+    public static Sprite GetTextureIconToLoad(int rarity)
+    {
+        return RarityItemDictionary[rarity].Sprite;
+    }
+    public static Sprite GetTextureBackgroundToLoad(int rarity)
+    {
+        return RarityItemBackgroundDictionary[rarity].Sprite;
     }
 
+}
+
+[System.Serializable]
+public class RarityTexture
+{
+    public int RarityId;
+    public Sprite Sprite;
+    private string FileName;
+
+    public RarityTexture(int rarityId, string fileName)
+    {
+        RarityId = rarityId;
+        FileName = fileName;
+        Sprite = Resources.Load<Sprite>(FileName);
+    }
 }
