@@ -3,14 +3,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryManager : MonoBehaviour, IPointerDownHandler
+public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private ItemLoader itemLoader = new ItemLoader();
     [Header("Base Elements of Inventory")]
     [SerializeField] private InventoryBag inventoryBagManager;
     [SerializeField] private CharacterInventory characterInventory;
+    [SerializeField] private HoverItemMenu hoverItemMenu;
     
     private GameObject pickedItem;
+    private Coroutine hoverItemCoroutine;
     private async void Start()
     {
         LoadingSpinner.OnLoadingStart.Invoke();
@@ -43,12 +45,35 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
             }
         }
     }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(pickedItem != null) return;
+
+        GameObject clickedItem = eventData.pointerCurrentRaycast.gameObject;
+        Debug.Log(clickedItem);
+        if (clickedItem.GetComponent<InventoryItem>() != null)
+        {
+            hoverItemCoroutine = StartCoroutine(hoverItemMenu.StartHoverTimer(clickedItem.GetComponent<InventoryItem>().GetItem()));
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (hoverItemCoroutine != null)
+        {
+            StopCoroutine(hoverItemCoroutine);
+            hoverItemMenu.gameObject.SetActive(false);
+            hoverItemCoroutine = null;
+        }
+    }
+
+
+    #region PointerDownMethods
 
     private void HandleItemPlacement(GameObject clickedItem)
     {
         if (clickedItem.GetComponent<BagSlot>())
         {
-
             AssignItemToSlot(clickedItem.GetComponent<BagSlot>());
         }
         else if (clickedItem.GetComponent<CharacterSlot>() != null)
@@ -103,11 +128,15 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler
             pickedItem.GetComponent<Image>().raycastTarget = false;
             pickedItem.transform.SetParent(transform);
             characterInventory.LightUpCategory(pickedItem.GetComponent<InventoryItem>().GetItem().Category);
+            OnPointerExit(null);
         }
     }
+    #endregion
 
     private bool IsMatchingCategory(CharacterSlot slot)
     {
         return pickedItem.GetComponent<InventoryItem>().GetItem().Category == slot.slotType;
     }
+
+
 }
