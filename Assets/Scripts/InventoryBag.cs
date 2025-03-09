@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,7 +13,6 @@ public class InventoryBag : MonoBehaviour
     public Transform itemContainer;
     [Header("Inventory Sorter")]
     public BagSorter sorter;
-    private List<InventoryItem> itemsInInventory = new List<InventoryItem>();
     private List<BagSlot> slotsInInventory = new List<BagSlot>();
     public IEnumerator CreateItems(ItemData itemData,UnityAction onComplete)
     {
@@ -23,9 +23,8 @@ public class InventoryBag : MonoBehaviour
             InventoryItem tempItem = itemObject.GetComponent<InventoryItem>();
             BagSlot tempSlot = slotObject.GetComponent<BagSlot>();
             tempItem.AssignItem(item);
+            tempSlot.AssignItemInSlot(itemObject);
             slotsInInventory.Add(tempSlot);
-            slotObject.GetComponent<BagSlot>().AssignItemInSlot(itemObject);
-            itemsInInventory.Add(tempItem);
             yield return null;
         }
 
@@ -36,6 +35,11 @@ public class InventoryBag : MonoBehaviour
     public List<BagSlot> GetSlotList()
     {
         return slotsInInventory;
+    }
+
+    public BagSlot GetEmptyBagSlot()
+    {
+        return slotsInInventory.First(slot => slot.slottedObject == null);
     }
 
 }

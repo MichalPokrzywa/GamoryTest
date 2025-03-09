@@ -33,6 +33,10 @@ public class CharacterSlot : MonoBehaviour
     {
         imageSlot.color = Color.white;
     }
+    public Item GetItem()
+    {
+        return slottedItem;
+    }
 
     private void HandleItemRemoved(InventoryItem item)
     {

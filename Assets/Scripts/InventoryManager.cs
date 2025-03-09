@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -48,11 +46,29 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
                 PickUpItem(clickedItem);
             }
         }
+        else if(eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (pickedItem != null) return;
+            GameObject clickedItem = eventData.pointerCurrentRaycast.gameObject;
+            if (clickedItem.GetComponent<InventoryItem>() != null)
+            {
+                if (clickedItem.transform.parent.GetComponent<BagSlot>() != null)
+                {
+                    FastMoveItemsBetweenSlots(clickedItem);
+                }
+                else if (clickedItem.transform.parent.GetComponent<CharacterSlot>())
+                {
+                    inventoryBagManager.GetEmptyBagSlot().AssignItemInSlot(clickedItem);
+                }
+                characterInventory.LightDownCategories();
+                OnPointerExit(null);
+            }
+        }
     }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(pickedItem != null) return;
-
         GameObject clickedItem = eventData.pointerCurrentRaycast.gameObject;
         Debug.Log(clickedItem);
         if (clickedItem.GetComponent<InventoryItem>() != null)
@@ -133,6 +149,23 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
             OnPointerExit(null);
         }
     }
+    private void FastMoveItemsBetweenSlots(GameObject clickedItem)
+    {
+        CharacterSlot slot = characterInventory.GetCharacterSlotByCategory(clickedItem.GetComponent<InventoryItem>()
+            .GetItem().Category);
+        if (slot.slottedObject == null)
+        {
+            slot.AssignItemInSlot(clickedItem);
+        }
+        else
+        {
+            BagSlot bagSlot = clickedItem.transform.parent.GetComponent<BagSlot>();
+            GameObject tmp = slot.slottedObject;
+            slot.AssignItemInSlot(clickedItem);
+            bagSlot.AssignItemInSlot(tmp);
+        }
+    }
+
     #endregion
 
     public void SendStatsToPlayer()
@@ -153,5 +186,4 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
 
         StartCoroutine(inventoryBagManager.CreateItems(task.Result, LoadingSpinner.OnLoadingEnd));
     }
-
 }

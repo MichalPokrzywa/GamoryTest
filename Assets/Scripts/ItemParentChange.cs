@@ -13,5 +13,9 @@ public class ItemParentChange : MonoBehaviour
         {
             OnRemovedFromSlot?.Invoke(this.GetComponent<InventoryItem>());
         }
+        else if (transform.parent.GetComponent<BagSlot>() == null)
+        {
+            OnRemovedFromSlot?.Invoke(this.GetComponent<InventoryItem>());
+        }
     }
 }
