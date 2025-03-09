@@ -31,6 +31,10 @@ public class Weapon : MonoBehaviour
         return timeFromLastShot > (1f / weaponData.AttackSpeed);
     }
 
+    private bool IsACrit()
+    {
+        return Random.Range(0f, 1f) > weaponData.CritChance;
+    }
     private void Shoot()
     {
         if (CanShot())
@@ -38,12 +42,21 @@ public class Weapon : MonoBehaviour
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hitInfo,
                     100.0f))
             {
-                Debug.Log(hitInfo.transform.name);
+                IDamagable damagable = hitInfo.transform.GetComponent<IDamagable>();
+                if (IsACrit())
+                {
+                    damagable?.Damage(weaponData.Damage * 2);
+                }
+                else
+                {
+                    damagable?.Damage(weaponData.Damage);
+                }
             }
 
             timeFromLastShot = 0;
         }
     }
+    
 
 }
 
