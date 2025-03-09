@@ -2923,11 +2923,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7501078307939428688, guid: fbfff3c6d7e83024aba726aec00d8d0b,
-        type: 3}
-      propertyPath: gravity
-      value: 1000
-      objectReference: {fileID: 0}
     - target: {fileID: 7501078307939428689, guid: fbfff3c6d7e83024aba726aec00d8d0b,
         type: 3}
       propertyPath: m_RootOrder
@@ -2987,16 +2982,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7501078307939428695, guid: fbfff3c6d7e83024aba726aec00d8d0b,
-        type: 3}
-      propertyPath: m_SlopeLimit
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7501078307939428695, guid: fbfff3c6d7e83024aba726aec00d8d0b,
-        type: 3}
-      propertyPath: m_StepOffset
-      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbfff3c6d7e83024aba726aec00d8d0b, type: 3}
