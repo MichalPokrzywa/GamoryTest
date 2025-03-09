@@ -27,20 +27,17 @@ public class Stat<T> where T : struct, IComparable, IConvertible, IFormattable
 
     public T GetCalculatedValue()
     {
-        // Check if we are dealing with floating point types or integers
         if (isPercentValue)
         {
             if (typeof(T) == typeof(float) || typeof(T) == typeof(double))
             {
-                // If it's a percentage and a float/double, perform percentage calculation
                 float baseVal = Convert.ToSingle(baseValue);
                 float bonusVal = Convert.ToSingle(bonusValue);
-                return (T)(object)(baseVal * (1f + bonusVal / 100f)); // cast back to T
+                return (T)(object)(baseVal * (1f + bonusVal / 100f));  
             }
         }
         else
         {
-            // If it's not a percentage, we can simply add the base and bonus values
             if (typeof(T) == typeof(int))
             {
                 return (T)(object)(Convert.ToInt32(baseValue) + Convert.ToInt32(bonusValue)); // cast to int
@@ -52,7 +49,6 @@ public class Stat<T> where T : struct, IComparable, IConvertible, IFormattable
             }
         }
 
-        // If we reach here, we couldn't process the type
         throw new InvalidOperationException($"Unsupported type {typeof(T)} for calculation.");
     }
 }
