@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LoadingSpinner : MonoBehaviour
+public class LoadingSpinner : Singleton<LoadingSpinner>
 {
     public RectTransform loadingSpinner;
     public GameObject background;
@@ -10,12 +10,16 @@ public class LoadingSpinner : MonoBehaviour
     public static UnityAction OnLoadingEnd;
     void Awake()
     {
-        foreach (Transform obj in GetComponentInChildren<Transform>())
+        if (Instance != this)
         {
-            obj.gameObject.SetActive(false);
+            Destroy(gameObject);
+            return;
         }
+        loadingSpinner.gameObject.SetActive(false);
+        background.SetActive(false);
         OnLoadingStart += Loading;
         OnLoadingEnd += EndLoading;
+        DontDestroyOnLoad(gameObject); 
     }
 
     public void Loading()

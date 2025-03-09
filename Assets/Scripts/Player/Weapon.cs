@@ -59,6 +59,7 @@ public class Weapon : MonoBehaviour
                 }
             }
 
+            GameManager.Instance.GetGameplayCanvas().ChargeAttack();
             timeFromLastShot = 0;
         }
     }

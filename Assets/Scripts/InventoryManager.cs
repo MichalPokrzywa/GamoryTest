@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,10 +14,11 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
     
     private GameObject pickedItem;
     private Coroutine hoverItemCoroutine;
-    private async void Start()
+    private void Start()
     {
-        LoadingSpinner.OnLoadingStart.Invoke();
-        StartCoroutine(inventoryBagManager.CreateItems(await itemLoader.FetchItems(),LoadingSpinner.OnLoadingEnd));
+        StartCoroutine(LoadItemsCoroutine());
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     void Update()
@@ -141,6 +143,15 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
     {
         return pickedItem.GetComponent<InventoryItem>().GetItem().Category == slot.slotType;
     }
-    
+
+    private IEnumerator LoadItemsCoroutine()
+    {
+        LoadingSpinner.OnLoadingStart?.Invoke();
+
+        var task = itemLoader.FetchItems();
+        yield return new WaitUntil(() => task.IsCompleted);
+
+        StartCoroutine(inventoryBagManager.CreateItems(task.Result, LoadingSpinner.OnLoadingEnd));
+    }
 
 }

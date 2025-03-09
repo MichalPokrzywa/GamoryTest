@@ -17,11 +17,11 @@ public class CharacterInventory : MonoBehaviour
             slot.OnItemSlotChange += UpdateStats;
         }
 
-        stats.BaseDamage = Random.Range(5, 20);
+        stats.BaseDamage = Random.Range(5, 10);
         stats.BaseHP = Random.Range(10, 25);
         stats.BaseCritChance = Random.Range(0f, 10f);
-        stats.BaseAttackSpeed = Random.Range(5f, 20f);
-        stats.BaseMoveSpeed = Random.Range(0f, 20f);
+        stats.BaseAttackSpeed = Random.Range(0.75f, 1f);
+        stats.BaseMoveSpeed = Random.Range(4f, 6f);
         characterStatsUI.InitStats(stats);
     }
 

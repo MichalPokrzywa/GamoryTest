@@ -16,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
+        yield return new WaitForSeconds(2f);
         while (true)
         {
             for (int i = 0; i < waveNumber; i++)
@@ -25,6 +26,7 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(0.3f);
             }
             waveNumber++;
+            GameManager.Instance.GetGameplayCanvas().UpdateWave(waveNumber);
             yield return new WaitForSeconds(spawnInterval);
         }
     }

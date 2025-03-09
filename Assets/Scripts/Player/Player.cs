@@ -29,10 +29,16 @@ public class Player : MonoBehaviour, IDamagable
     public void Damage(int damage)
     {
         currentHP -= damage;
+        
         if (currentHP <= 0)
         {
             playerMovement.canMove = false;
             weapon.StopWeapon();
+            GameManager.Instance.RestartGame();
+        }
+        else
+        {
+            GameManager.Instance.GetGameplayCanvas().UpdateHeath(maxHP, currentHP);
         }
     }
 }
