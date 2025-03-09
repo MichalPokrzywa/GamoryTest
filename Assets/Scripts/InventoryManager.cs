@@ -29,10 +29,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
         }
     }
 
-    public void SendStatsToPlayer()
-    {
-        GameManager.Instance.StartGameplay(characterInventory.GetStats());
-    }
+    #region PointerMethods
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -73,50 +70,49 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
             hoverItemCoroutine = null;
         }
     }
-
-    #region PointerDownMethods
+    #endregion
+    #region MovingItems
 
     private void HandleItemPlacement(GameObject clickedItem)
     {
         if (clickedItem.GetComponent<BagSlot>())
         {
-            AssignItemToSlot(clickedItem.GetComponent<BagSlot>());
+            AssignItemToBagSlot(clickedItem.GetComponent<BagSlot>());
         }
         else if (clickedItem.GetComponent<CharacterSlot>() != null)
         {
             if (IsMatchingCategory(clickedItem.GetComponent<CharacterSlot>()))
             {
-                AssignItemToSlot(clickedItem.GetComponent<CharacterSlot>());
+                AssignItemToCharacterSlot(clickedItem.GetComponent<CharacterSlot>());
             }
         }
         else if (clickedItem.GetComponent<InventoryItem>() != null)
         {
             if (clickedItem.transform.parent.GetComponent<BagSlot>() != null)
             {
-                AssignItemToSlot(clickedItem.transform.parent.GetComponent<BagSlot>(), clickedItem);
+                AssignItemToBagSlot(clickedItem.transform.parent.GetComponent<BagSlot>(), clickedItem);
             }
             else if (IsMatchingCategory(clickedItem.transform.parent.GetComponent<CharacterSlot>()))
             {
-                AssignItemToSlot(clickedItem.transform.parent.GetComponent<CharacterSlot>(),clickedItem);
+                AssignItemToCharacterSlot(clickedItem.transform.parent.GetComponent<CharacterSlot>(),clickedItem);
             }
         }
     }
-    private void AssignItemToSlot(BagSlot slot, GameObject newPickedItem = null)
+    private void AssignItemToBagSlot(BagSlot slot, GameObject newPickedItem = null)
     {
         slot.AssignItemInSlot(pickedItem);
-        pickedItem.GetComponent<Image>().raycastTarget = true;
-        characterInventory.LightDownCategories();
-        pickedItem = newPickedItem;
-        if (newPickedItem != null)
-        {
-            PickUpItem(newPickedItem);
-        }
+        UpdatePickedItem(newPickedItem);
     }
 
-    private void AssignItemToSlot(CharacterSlot slot, GameObject newPickedItem = null)
+    private void AssignItemToCharacterSlot(CharacterSlot slot, GameObject newPickedItem = null)
     {
         slot.AssignItemInSlot(pickedItem);
-        pickedItem.GetComponent<Image>().raycastTarget = true;
+        UpdatePickedItem(newPickedItem);
+    }
+
+    private void UpdatePickedItem(GameObject newPickedItem)
+    {
+        pickedItem.GetComponent<ImageGetter>().RaycastDetect(true);
         characterInventory.LightDownCategories();
         pickedItem = newPickedItem;
         if (newPickedItem != null)
@@ -131,7 +127,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
         if (inventoryItem != null)
         {
             pickedItem = clickedItem;
-            pickedItem.GetComponent<Image>().raycastTarget = false;
+            pickedItem.GetComponent<ImageGetter>().RaycastDetect(false);
             pickedItem.transform.SetParent(transform);
             characterInventory.LightUpCategory(pickedItem.GetComponent<InventoryItem>().GetItem().Category);
             OnPointerExit(null);
@@ -139,6 +135,10 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
     }
     #endregion
 
+    public void SendStatsToPlayer()
+    {
+        GameManager.Instance.StartGameplay(characterInventory.GetStats());
+    }
     private bool IsMatchingCategory(CharacterSlot slot)
     {
         return pickedItem.GetComponent<InventoryItem>().GetItem().Category == slot.slotType;
