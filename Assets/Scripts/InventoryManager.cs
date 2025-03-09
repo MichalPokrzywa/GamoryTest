@@ -27,6 +27,11 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
         }
     }
 
+    public void SendStatsToPlayer()
+    {
+        GameManager.Instance.StartGameplay(characterInventory.GetStats());
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -136,5 +141,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
     {
         return pickedItem.GetComponent<InventoryItem>().GetItem().Category == slot.slotType;
     }
+    
 
 }

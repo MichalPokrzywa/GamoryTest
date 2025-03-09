@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamagable
 {
-    public int enemyHP = 30;
-    public int damage = 5;
-    public float speed = 2f;
+    public int enemyHP = 100;
+    public int damage = 20;
+    public float speed = 3f;
     private Transform player;
 
     void Start()
@@ -31,7 +32,8 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
+            IDamagable damagable = collision.transform.GetComponent<IDamagable>();
+            damagable?.Damage(damage);
             Destroy(gameObject);
         }
     }

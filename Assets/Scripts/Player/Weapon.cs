@@ -8,10 +8,11 @@ public class Weapon : MonoBehaviour
 {
     private WeaponData weaponData;
     private float timeFromLastShot = 99f;
-    private bool initWeapon = true;
-    void Start()
+    private bool initWeapon = false;
+    public void InitWeapon(WeaponData data)
     {
-        weaponData.AttackSpeed = 1f;
+        weaponData = data;
+        initWeapon = true;
     }
 
     void Update()
@@ -24,6 +25,11 @@ public class Weapon : MonoBehaviour
                 Shoot();
             }
         }
+    }
+
+    public void StopWeapon()
+    {
+        initWeapon =false;
     }
 
     private bool CanShot()
@@ -56,8 +62,6 @@ public class Weapon : MonoBehaviour
             timeFromLastShot = 0;
         }
     }
-    
-
 }
 
 public struct WeaponData

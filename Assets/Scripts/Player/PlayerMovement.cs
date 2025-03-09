@@ -16,21 +16,23 @@ public class PlayerMovement : MonoBehaviour
     private float rotationX = 0;
     private CharacterController characterController;
 
-    private bool canMove = true;
+    [HideInInspector] public bool canMove = false;
 
-    void Start()
+    public void Init()
     {
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        canMove = true;
     }
 
     void Update()
     {
-        if (!canMove) return;
+        if (canMove != true) return;
 
         MovePlayer();
         RotateCamera();
+
     }
 
     private void MovePlayer()

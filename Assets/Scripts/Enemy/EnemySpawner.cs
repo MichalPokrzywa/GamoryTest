@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
     public float spawnInterval = 8f;
     private int waveNumber = 1;
 
-    void Start()
+    public void StartSpawning()
     {
         StartCoroutine(SpawnEnemies());
     }
