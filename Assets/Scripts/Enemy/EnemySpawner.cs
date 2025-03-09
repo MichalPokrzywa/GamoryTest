@@ -22,9 +22,11 @@ public class EnemySpawner : MonoBehaviour
             for (int i = 0; i < waveNumber; i++)
             {
                 Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-                Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+                GameObject tmp = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+                tmp.GetComponent<Enemy>().ModifyEnemy(waveNumber);
                 yield return new WaitForSeconds(0.3f);
             }
+
             waveNumber++;
             GameManager.Instance.GetGameplayCanvas().UpdateWave(waveNumber);
             yield return new WaitForSeconds(spawnInterval);

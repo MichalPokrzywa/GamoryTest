@@ -37,7 +37,7 @@ public class ItemLoader
         {
             Debug.LogError("Item fetch was canceled.");
         }
-        
+
         return itemData;
     }
 }
@@ -46,30 +46,31 @@ public static class RarityLoader
 {
     public static Dictionary<int, RarityTexture> RarityItemDictionary = new Dictionary<int, RarityTexture>()
     {
-        { 0,new RarityTexture(0,"Textures/Items/Rarity/ItemRarityCommon")  },
-        { 1,new RarityTexture(1,"Textures/Items/Rarity/ItemRarityUncommon") },
-        { 2,new RarityTexture(2, "Textures/Items/Rarity/ItemRarityRare") },
-        { 3,new RarityTexture(3, "Textures/Items/Rarity/ItemRarityEpic")},
-        { 4,new RarityTexture(4, "Textures/Items/Rarity/ItemRarityLegendary")}
+        { 0, new RarityTexture(0, "Textures/Items/Rarity/ItemRarityCommon") },
+        { 1, new RarityTexture(1, "Textures/Items/Rarity/ItemRarityUncommon") },
+        { 2, new RarityTexture(2, "Textures/Items/Rarity/ItemRarityRare") },
+        { 3, new RarityTexture(3, "Textures/Items/Rarity/ItemRarityEpic") },
+        { 4, new RarityTexture(4, "Textures/Items/Rarity/ItemRarityLegendary") }
     };
 
     public static Dictionary<int, RarityTexture> RarityItemBackgroundDictionary = new Dictionary<int, RarityTexture>()
     {
-        { 0,new RarityTexture(0,"Textures/Items/Rarity/CardInDeckListCommonUI")  },
-        { 1,new RarityTexture(1,"Textures/Items/Rarity/CardInDeckListUncommonUI") },
-        { 2,new RarityTexture(2, "Textures/Items/Rarity/CardInDeckListRareUI") },
-        { 3,new RarityTexture(3, "Textures/Items/Rarity/CardInDeckListEpicUI")},
-        { 4,new RarityTexture(4, "Textures/Items/Rarity/CardInDeckListLegendaryUI")}
+        { 0, new RarityTexture(0, "Textures/Items/Rarity/CardInDeckListCommonUI") },
+        { 1, new RarityTexture(1, "Textures/Items/Rarity/CardInDeckListUncommonUI") },
+        { 2, new RarityTexture(2, "Textures/Items/Rarity/CardInDeckListRareUI") },
+        { 3, new RarityTexture(3, "Textures/Items/Rarity/CardInDeckListEpicUI") },
+        { 4, new RarityTexture(4, "Textures/Items/Rarity/CardInDeckListLegendaryUI") }
     };
+
     public static Sprite GetTextureIconToLoad(int rarity)
     {
         return RarityItemDictionary[rarity].Sprite;
     }
+
     public static Sprite GetTextureBackgroundToLoad(int rarity)
     {
         return RarityItemBackgroundDictionary[rarity].Sprite;
     }
-
 }
 
 [System.Serializable]

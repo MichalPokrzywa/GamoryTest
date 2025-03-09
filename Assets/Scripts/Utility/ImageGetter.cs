@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ImageGetter : MonoBehaviour
 {
     private Image image;
-    // Start is called before the first frame update
+
     void Start()
     {
         image = GetComponent<Image>();
@@ -16,5 +16,4 @@ public class ImageGetter : MonoBehaviour
     {
         image.raycastTarget = toDetect;
     }
-
 }

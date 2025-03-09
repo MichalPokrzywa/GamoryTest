@@ -7,14 +7,16 @@ using UnityEngine.Events;
 
 public class InventoryBag : MonoBehaviour
 {
-    [Header("Prefabs")]
+    [Header("Prefabs")] 
     public GameObject itemPrefab;
     public GameObject slotPrefab;
     public Transform itemContainer;
-    [Header("Inventory Sorter")]
+
+    [Header("Inventory Sorter")] 
     public BagSorter sorter;
     private List<BagSlot> slotsInInventory = new List<BagSlot>();
-    public IEnumerator CreateItems(ItemData itemData,UnityAction onComplete)
+
+    public IEnumerator CreateItems(ItemData itemData, UnityAction onComplete)
     {
         foreach (Item item in itemData.Items)
         {
@@ -41,5 +43,4 @@ public class InventoryBag : MonoBehaviour
     {
         return slotsInInventory.First(slot => slot.slottedObject == null);
     }
-
 }

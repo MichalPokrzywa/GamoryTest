@@ -40,7 +40,7 @@ public class Weapon : MonoBehaviour
 
     private bool IsACrit()
     {
-        return Random.Range(0f, 1f) > weaponData.CritChance;
+        return Random.Range(0f, 1f) > weaponData.CritChance/100f;
     }
 
     private void Shoot()
@@ -53,7 +53,7 @@ public class Weapon : MonoBehaviour
                 IDamagable damagable = hitInfo.transform.GetComponent<IDamagable>();
                 if (IsACrit())
                 {
-                    damagable?.Damage(weaponData.Damage * 2);
+                    damagable?.CritDamage(weaponData.Damage * 2);
                 }
                 else
                 {

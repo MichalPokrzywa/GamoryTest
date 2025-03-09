@@ -11,12 +11,12 @@ public class GameplayCanvas : MonoBehaviour
     [SerializeField] private Slider attackCharge;
 
     private float timeCharge;
-    
+
     public void InitCanvas(CharacterGameStats stats)
     {
         hpText.text = $"{stats.Hp.GetCalculatedValue()}/{stats.Hp.GetCalculatedValue()}";
         waveNumber.text = "Wave 1";
-        timeCharge = 1f/stats.AttackSpeed.GetCalculatedValue();
+        timeCharge = 1f / stats.AttackSpeed.GetCalculatedValue();
     }
 
     public void ChargeAttack()
@@ -32,9 +32,6 @@ public class GameplayCanvas : MonoBehaviour
 
     public void UpdateWave(int wave)
     {
-        waveNumber.text = "Wave " +wave;
+        waveNumber.text = "Wave " + wave;
     }
-
-
-
 }

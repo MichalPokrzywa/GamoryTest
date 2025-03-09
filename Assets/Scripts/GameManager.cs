@@ -28,6 +28,7 @@ public class GameManager : Singleton<GameManager>
     {
         return playerReference.transform;
     }
+
     public GameplayCanvas GetGameplayCanvas()
     {
         return gameCanvas;

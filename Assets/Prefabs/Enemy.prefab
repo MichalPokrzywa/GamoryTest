@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9138904104277177789}
   - component: {fileID: 9138904104277177778}
   - component: {fileID: 9138904104277177790}
+  - component: {fileID: -8894746170839530016}
   - component: {fileID: 9138904104277177785}
   m_Layer: 0
   m_Name: Enemy
@@ -114,6 +115,23 @@ MonoBehaviour:
   enemyHP: 30
   damage: 5
   speed: 2
+  visualser: {fileID: -8894746170839530016}
+--- !u!114 &-8894746170839530016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9138904104277177779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff07dd5054657c44bb76f17b711354a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 9138904104277177789}
+  baseColor: {r: 1, g: 0, b: 0.008803844, a: 1}
+  damageColor: {r: 1, g: 0.65654284, b: 0, a: 1}
+  critDamageColor: {r: 0.18944545, g: 0, b: 0.5377358, a: 1}
 --- !u!54 &9138904104277177785
 Rigidbody:
   m_ObjectHideFlags: 0

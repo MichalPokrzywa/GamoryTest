@@ -8,8 +8,9 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class HoverItemUI : MonoBehaviour
 {
-    [Header("UI Elements")]
-    [SerializeField] private Image itemIcon;
+    [Header("UI Elements")] [SerializeField]
+    private Image itemIcon;
+
     [SerializeField] private Image itemBackground;
     [SerializeField] private Image itemNameBackground;
     [SerializeField] private TMP_Text itemName;
@@ -30,7 +31,6 @@ public class HoverItemUI : MonoBehaviour
         itemAttackSpeed.text = item.AttackSpeed.ToString("0.00") + " %";
         itemCritChance.text = item.CriticalStrikeChance.ToString("0.00") + " %";
         itemMoveSpeed.text = item.MovementSpeed.ToString("0.00") + " %";
-
     }
 
     public void ModifyPivotBaseOnScreenPosition(Vector2 screenPosition)

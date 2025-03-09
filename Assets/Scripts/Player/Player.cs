@@ -8,8 +8,9 @@ public class Player : MonoBehaviour, IDamagable
     public int currentHP;
 
     [SerializeField] private PlayerMovement playerMovement;
+
     [SerializeField] private Weapon weapon;
-    // Start is called before the first frame update
+
     public void InitPlayer(CharacterGameStats stats)
     {
         maxHP = stats.Hp.GetCalculatedValue();
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour, IDamagable
     public void Damage(int damage)
     {
         currentHP -= damage;
-        
+
         if (currentHP <= 0)
         {
             playerMovement.canMove = false;
@@ -40,5 +41,10 @@ public class Player : MonoBehaviour, IDamagable
         {
             GameManager.Instance.GetGameplayCanvas().UpdateHeath(maxHP, currentHP);
         }
+    }
+
+    public void CritDamage(int damage)
+    {
+        //no need 
     }
 }

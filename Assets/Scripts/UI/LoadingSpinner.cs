@@ -8,6 +8,7 @@ public class LoadingSpinner : Singleton<LoadingSpinner>
     public GameObject background;
     public static UnityAction OnLoadingStart;
     public static UnityAction OnLoadingEnd;
+
     void Awake()
     {
         if (Instance != this)
@@ -15,11 +16,12 @@ public class LoadingSpinner : Singleton<LoadingSpinner>
             Destroy(gameObject);
             return;
         }
+
         loadingSpinner.gameObject.SetActive(false);
         background.SetActive(false);
         OnLoadingStart += Loading;
         OnLoadingEnd += EndLoading;
-        DontDestroyOnLoad(gameObject); 
+        DontDestroyOnLoad(gameObject);
     }
 
     public void Loading()

@@ -9,7 +9,8 @@ public class Enemy : MonoBehaviour, IDamagable
     public int damage = 20;
     public float speed = 3f;
     private Transform player;
-
+    [SerializeField] 
+    private EnemyVisualser visualser;
     void Start()
     {
         player = GameManager.Instance.GetPlayerTransform();
@@ -22,12 +23,34 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
     }
+
+    public void ModifyEnemy(int modifier)
+    {
+        enemyHP *= modifier;
+        damage *= modifier;
+    }
     public void Damage(int damage)
     {
         enemyHP -= damage;
         if (enemyHP <= 0)
         {
             Destroy(gameObject);
+        }
+        else
+        {
+            visualser.ShowDamage();
+        }
+    }
+    public void CritDamage(int damage)
+    {
+        enemyHP -= damage;
+        if (enemyHP <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            visualser.ShowCritDamage();
         }
     }
 
@@ -40,5 +63,4 @@ public class Enemy : MonoBehaviour, IDamagable
             Destroy(gameObject);
         }
     }
-
 }
