@@ -12,7 +12,10 @@ public class Enemy : MonoBehaviour, IDamagable
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameManager.Instance.GetPlayerTransform();
+        enemyHP = Random.Range(50, 200);
+        damage = Random.Range(10, 20);
+        speed = Random.Range(3f, 6f);
     }
 
     void Update()

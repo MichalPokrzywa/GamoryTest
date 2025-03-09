@@ -24,6 +24,10 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public Transform GetPlayerTransform()
+    {
+        return playerReference.transform;
+    }
     public GameplayCanvas GetGameplayCanvas()
     {
         return gameCanvas;
