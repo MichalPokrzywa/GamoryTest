@@ -15,3 +15,8 @@ Atrybuty używane w grze:
 - AttackSpeed – Szybkość ataku, wpływa na częstotliwość wystrzelonego pocisku.
 - CriticalStrikeChance – Szansa na zadanie podwójnych obrażeń.
 - MovementSpeed – Szybkość poruszania się gracza.
+
+<h3 align="center"> Video Demonstration
+
+[![VideoDemonstration](https://img.youtube.com/vi/v3PNPtiZXIU/0.jpg)](https://youtu.be/v3PNPtiZXIU)
+
