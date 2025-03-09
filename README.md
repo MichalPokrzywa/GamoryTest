@@ -1,7 +1,7 @@
 Sterowanie w Inventory:
 - LPM - Podnoszenie/Odkładanie/Podmienianie przedmiotu
-- PPM - Szybkie wyekwipowanie
-- Najechanie na przedmiot - Pokazanie się statystk przedmiotu
+- PPM - Szybkie wyekwipowanie przedmiotu
+- Najechanie na przedmiot - Pokazanie się statystyk przedmiotu
 
 Sterowanie w grze:
 - LPM - Strzelanie
@@ -12,7 +12,7 @@ Typ Rozgrywki: "Przetrwanie na arenie"
 Atrybuty używane w grze:
 - HealthPoints (HP) – Punkty życia gracza, spadają po otrzymaniu obrażeń.
 - Damage – Siła ataku zadawanego przeciwnikom.
-- AttackSpeed – Szybkość ataku, wpływa na częstotliwość wystrzelonego pocisku.
+- AttackSpeed – Szybkość ataku, wpływa na częstotliwość wystrzelonego pocisku (Attack per second)
 - CriticalStrikeChance – Szansa na zadanie podwójnych obrażeń.
 - MovementSpeed – Szybkość poruszania się gracza.
 
