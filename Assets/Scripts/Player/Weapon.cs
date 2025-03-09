@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     private WeaponData weaponData;
     private float timeFromLastShot = 99f;
     private bool initWeapon = false;
+
     public void InitWeapon(WeaponData data)
     {
         weaponData = data;
@@ -29,7 +30,7 @@ public class Weapon : MonoBehaviour
 
     public void StopWeapon()
     {
-        initWeapon =false;
+        initWeapon = false;
     }
 
     private bool CanShot()
@@ -41,6 +42,7 @@ public class Weapon : MonoBehaviour
     {
         return Random.Range(0f, 1f) > weaponData.CritChance;
     }
+
     private void Shoot()
     {
         if (CanShot())
@@ -67,7 +69,7 @@ public class Weapon : MonoBehaviour
 
 public struct WeaponData
 {
-   public int Damage;
-   public float AttackSpeed;
-   public float CritChance;
+    public int Damage;
+    public float AttackSpeed;
+    public float CritChance;
 }

@@ -19,7 +19,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
         Cursor.visible = true;
     }
 
-    void Update()
+    private void Update()
     {
         if (pickedItem != null)
         {
@@ -27,93 +27,103 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
         }
     }
 
-    #region PointerMethods
+    #region Pointer Methods
 
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            GameObject clickedItem = eventData.pointerCurrentRaycast.gameObject;
-            if (clickedItem == null) return;
-            Debug.Log(clickedItem);
-
-            if (pickedItem != null)
-            {
-                HandleItemPlacement(clickedItem);
-            }
-            else
-            {
-                PickUpItem(clickedItem);
-            }
+            HandleLeftClick(eventData.pointerCurrentRaycast.gameObject);
         }
-        else if(eventData.button == PointerEventData.InputButton.Right)
+        else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (pickedItem != null) return;
-            GameObject clickedItem = eventData.pointerCurrentRaycast.gameObject;
-            if (clickedItem.GetComponent<InventoryItem>() != null)
-            {
-                if (clickedItem.transform.parent.GetComponent<BagSlot>() != null)
-                {
-                    FastMoveItemsBetweenSlots(clickedItem);
-                }
-                else if (clickedItem.transform.parent.GetComponent<CharacterSlot>())
-                {
-                    inventoryBagManager.GetEmptyBagSlot().AssignItemInSlot(clickedItem);
-                }
-                characterInventory.LightDownCategories();
-                OnPointerExit(null);
-            }
+            HandleRightClick(eventData.pointerCurrentRaycast.gameObject);
         }
+    }
+
+    private void HandleLeftClick(GameObject clickedItem)
+    {
+        if (clickedItem == null) return;
+
+        Debug.Log(clickedItem);
+        if (pickedItem != null)
+        {
+            HandleItemPlacement(clickedItem);
+        }
+        else
+        {
+            PickUpItem(clickedItem);
+        }
+    }
+
+    private void HandleRightClick(GameObject clickedItem)
+    {
+        if (pickedItem != null || clickedItem == null) return;
+
+        InventoryItem inventoryItem = clickedItem.GetComponent<InventoryItem>();
+        if (inventoryItem == null) return;
+
+        if (clickedItem.transform.parent.TryGetComponent(out BagSlot bagSlot))
+        {
+            FastMoveItemsBetweenSlots(clickedItem);
+        }
+        else if (clickedItem.transform.parent.TryGetComponent(out CharacterSlot characterSlot))
+        {
+            inventoryBagManager.GetEmptyBagSlot()?.AssignItemInSlot(clickedItem);
+        }
+
+        characterInventory.LightDownCategories();
+        OnPointerExit(null);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(pickedItem != null) return;
-        GameObject clickedItem = eventData.pointerCurrentRaycast.gameObject;
-        Debug.Log(clickedItem);
-        if (clickedItem.GetComponent<InventoryItem>() != null)
-        {
-            hoverItemCoroutine = StartCoroutine(hoverItemMenu.StartHoverTimer(clickedItem.GetComponent<InventoryItem>().GetItem()));
-        }
+        if (pickedItem != null) return;
+
+        GameObject hoveredItem = eventData.pointerCurrentRaycast.gameObject;
+        if (hoveredItem == null || hoveredItem.GetComponent<InventoryItem>() == null) return;
+
+        Debug.Log(hoveredItem);
+        hoverItemCoroutine = StartCoroutine(hoverItemMenu.StartHoverTimer(hoveredItem.GetComponent<InventoryItem>().GetItem()));
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (hoverItemCoroutine != null)
-        {
-            StopCoroutine(hoverItemCoroutine);
-            hoverItemMenu.gameObject.SetActive(false);
-            hoverItemCoroutine = null;
-        }
+        if (hoverItemCoroutine == null) return;
+
+        StopCoroutine(hoverItemCoroutine);
+        hoverItemMenu.gameObject.SetActive(false);
+        hoverItemCoroutine = null;
     }
+
     #endregion
-    #region MovingItems
+
+    #region Moving Items
 
     private void HandleItemPlacement(GameObject clickedItem)
     {
-        if (clickedItem.GetComponent<BagSlot>())
+        if (clickedItem.TryGetComponent(out BagSlot bagSlot))
         {
-            AssignItemToBagSlot(clickedItem.GetComponent<BagSlot>());
+            AssignItemToBagSlot(bagSlot);
         }
-        else if (clickedItem.GetComponent<CharacterSlot>() != null)
+        else if (clickedItem.TryGetComponent(out CharacterSlot characterSlot) && IsMatchingCategory(characterSlot))
         {
-            if (IsMatchingCategory(clickedItem.GetComponent<CharacterSlot>()))
-            {
-                AssignItemToCharacterSlot(clickedItem.GetComponent<CharacterSlot>());
-            }
+            AssignItemToCharacterSlot(characterSlot);
         }
-        else if (clickedItem.GetComponent<InventoryItem>() != null)
+        else if (clickedItem.TryGetComponent(out InventoryItem inventoryItem))
         {
-            if (clickedItem.transform.parent.GetComponent<BagSlot>() != null)
+            Transform parent = clickedItem.transform.parent;
+            if (parent.TryGetComponent(out BagSlot parentBagSlot))
             {
-                AssignItemToBagSlot(clickedItem.transform.parent.GetComponent<BagSlot>(), clickedItem);
+                AssignItemToBagSlot(parentBagSlot, clickedItem);
             }
-            else if (IsMatchingCategory(clickedItem.transform.parent.GetComponent<CharacterSlot>()))
+            else if (parent.TryGetComponent(out CharacterSlot parentCharacterSlot) && IsMatchingCategory(parentCharacterSlot))
             {
-                AssignItemToCharacterSlot(clickedItem.transform.parent.GetComponent<CharacterSlot>(),clickedItem);
+                AssignItemToCharacterSlot(parentCharacterSlot, clickedItem);
             }
         }
     }
+
     private void AssignItemToBagSlot(BagSlot slot, GameObject newPickedItem = null)
     {
         slot.AssignItemInSlot(pickedItem);
@@ -128,31 +138,35 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
 
     private void UpdatePickedItem(GameObject newPickedItem)
     {
-        pickedItem.GetComponent<ImageGetter>().RaycastDetect(true);
+        pickedItem?.GetComponent<ImageGetter>().RaycastDetect(true);
         characterInventory.LightDownCategories();
         pickedItem = newPickedItem;
-        if (newPickedItem != null)
+        if (pickedItem != null)
         {
-            PickUpItem(newPickedItem);
+            PickUpItem(pickedItem);
         }
     }
 
     private void PickUpItem(GameObject clickedItem)
     {
         InventoryItem inventoryItem = clickedItem.GetComponent<InventoryItem>();
-        if (inventoryItem != null)
-        {
-            pickedItem = clickedItem;
-            pickedItem.GetComponent<ImageGetter>().RaycastDetect(false);
-            pickedItem.transform.SetParent(transform);
-            characterInventory.LightUpCategory(pickedItem.GetComponent<InventoryItem>().GetItem().Category);
-            OnPointerExit(null);
-        }
+        if (inventoryItem == null) return;
+
+        pickedItem = clickedItem;
+        pickedItem.GetComponent<ImageGetter>().RaycastDetect(false);
+        pickedItem.transform.SetParent(transform);
+        characterInventory.LightUpCategory(inventoryItem.GetItem().Category);
+        OnPointerExit(null);
     }
+
     private void FastMoveItemsBetweenSlots(GameObject clickedItem)
     {
-        CharacterSlot slot = characterInventory.GetCharacterSlotByCategory(clickedItem.GetComponent<InventoryItem>()
-            .GetItem().Category);
+        InventoryItem inventoryItem = clickedItem.GetComponent<InventoryItem>();
+        if (inventoryItem == null) return;
+
+        CharacterSlot slot = characterInventory.GetCharacterSlotByCategory(inventoryItem.GetItem().Category);
+        if (slot == null) return;
+
         if (slot.slottedObject == null)
         {
             slot.AssignItemInSlot(clickedItem);
@@ -172,9 +186,10 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerEnte
     {
         GameManager.Instance.StartGameplay(characterInventory.GetStats());
     }
+
     private bool IsMatchingCategory(CharacterSlot slot)
     {
-        return pickedItem.GetComponent<InventoryItem>().GetItem().Category == slot.slotType;
+        return pickedItem?.GetComponent<InventoryItem>().GetItem().Category == slot.slotType;
     }
 
     private IEnumerator LoadItemsCoroutine()

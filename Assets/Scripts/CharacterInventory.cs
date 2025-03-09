@@ -56,31 +56,29 @@ public class CharacterInventory : MonoBehaviour
         float tempAttackSpeed = 0;
         float tempCritChance = 0;
         float tempMoveSpeed = 0;
-        foreach (CharacterSlot slot in itemSlots)
+        foreach (CharacterSlot slot in itemSlots.Where(slot => slot.slottedItem != null))
         {
-            if (slot.slottedItem != null)
-            {
-                tempHP += slot.slottedItem.HealthPoints;
-                tempDamage += slot.slottedItem.Damage;
-                tempAttackSpeed += slot.slottedItem.AttackSpeed;
-                tempCritChance += slot.slottedItem.CriticalStrikeChance;
-                tempMoveSpeed += slot.slottedItem.MovementSpeed;
-            }
+            tempHP += slot.slottedItem.HealthPoints;
+            tempDamage += slot.slottedItem.Damage;
+            tempAttackSpeed += slot.slottedItem.AttackSpeed;
+            tempCritChance += slot.slottedItem.CriticalStrikeChance;
+            tempMoveSpeed += slot.slottedItem.MovementSpeed;
         }
-        stats.BonusHP = tempHP;
-        stats.BonusDamage = tempDamage;
-        stats.BonusAttackSpeed = tempAttackSpeed;
-        stats.BonusCritChance = tempCritChance;
-        stats.BonusMoveSpeed = tempMoveSpeed;
+
+        stats.Hp.bonusValue = tempHP;
+        stats.Damage.bonusValue = tempDamage;
+        stats.AttackSpeed.bonusValue = tempAttackSpeed;
+        stats.CritChance.bonusValue = tempCritChance;
+        stats.MoveSpeed.bonusValue = tempMoveSpeed;
         characterStatsUI.UpdateStatsOnUI(stats);
     }
 
     private void CreateCharacterStats()
     {
-        stats.BaseDamage = Random.Range(5, 10);
-        stats.BaseHP = Random.Range(10, 25);
-        stats.BaseCritChance = Random.Range(0f, 10f);
-        stats.BaseAttackSpeed = Random.Range(0.75f, 1f);
-        stats.BaseMoveSpeed = Random.Range(4f, 6f);
+        stats.Damage.baseValue = Random.Range(5, 10);
+        stats.Hp.baseValue = Random.Range(10, 25);
+        stats.CritChance.baseValue = Random.Range(0f, 10f);
+        stats.AttackSpeed.baseValue = Random.Range(0.75f, 1f);
+        stats.MoveSpeed.baseValue = Random.Range(4f, 6f);
     }
 }

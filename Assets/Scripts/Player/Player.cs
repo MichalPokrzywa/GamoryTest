@@ -12,15 +12,15 @@ public class Player : MonoBehaviour, IDamagable
     // Start is called before the first frame update
     public void InitPlayer(CharacterGameStats stats)
     {
-        maxHP = stats.GetCalculatedHP();
+        maxHP = stats.Hp.GetCalculatedValue();
         currentHP = maxHP;
-        playerMovement.walkSpeed = stats.GetCalculatedMoveSpeed();
+        playerMovement.walkSpeed = stats.MoveSpeed.GetCalculatedValue();
         playerMovement.runSpeed = playerMovement.walkSpeed * 2;
         WeaponData weaponData = new WeaponData()
         {
-            AttackSpeed = stats.GetCalculatedAttackSpeed(),
-            CritChance = stats.GetCalculatedCritChance(),
-            Damage = stats.GetCalculatedDamage()
+            AttackSpeed = stats.AttackSpeed.GetCalculatedValue(),
+            CritChance = stats.CritChance.GetCalculatedValue(),
+            Damage = stats.Damage.GetCalculatedValue()
         };
         playerMovement.Init();
         weapon.InitWeapon(weaponData);

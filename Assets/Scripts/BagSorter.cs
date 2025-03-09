@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class BagSorter : MonoBehaviour
 {
-    [Header("UI Buttons")]
+    [Header("UI Buttons")] 
     [SerializeField] private SortButton sortUpButton;
+
     [SerializeField] private SortButton sortDownButton;
     [SerializeField] private SortButton showAllButton;
     [SerializeField] private List<SortButton> categoryButtons;
@@ -27,14 +28,13 @@ public class BagSorter : MonoBehaviour
         }
 
         itemSlots = createdSlots;
-
     }
 
     public void SortUp()
     {
         // Items first, empty slots at bottom
         itemSlots = itemSlots
-            .OrderByDescending(slot => slot.HasItem() ? slot.GetItem().Rarity : -1) 
+            .OrderByDescending(slot => slot.HasItem() ? slot.GetItem().Rarity : -1)
             .ToList();
 
         UpdateInventoryUI();
@@ -44,7 +44,7 @@ public class BagSorter : MonoBehaviour
     {
         // Items first, empty slots at bottom
         itemSlots = itemSlots
-            .OrderBy(slot => slot.HasItem() ? slot.GetItem().Rarity : int.MaxValue) 
+            .OrderBy(slot => slot.HasItem() ? slot.GetItem().Rarity : int.MaxValue)
             .ToList();
 
         UpdateInventoryUI();
@@ -66,7 +66,7 @@ public class BagSorter : MonoBehaviour
         {
             bool shouldShow = slot.HasItem() && slot.GetItem().Category == category;
             // Show empty slots too
-            slot.gameObject.SetActive(shouldShow || !slot.HasItem()); 
+            slot.gameObject.SetActive(shouldShow || !slot.HasItem());
         }
 
         UpdateInventoryUI();
@@ -85,6 +85,7 @@ public class BagSorter : MonoBehaviour
         {
             slot.transform.SetSiblingIndex(index++);
         }
+
         foreach (var slot in itemSlots.Where(slot => !slot.HasItem()))
         {
             slot.transform.SetSiblingIndex(index++);

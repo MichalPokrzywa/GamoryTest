@@ -30,34 +30,42 @@ public class CharacterStatsUI : MonoBehaviour
 
     public void InitStats(CharacterGameStats stats)
     {
-        baseHp.text = stats.BaseHP.ToString();
-        baseDamage.text = stats.BaseDamage.ToString();
-        baseAttackSpeed.text = stats.BaseAttackSpeed.ToString("0.00");
-        baseCritChance.text = stats.BaseCritChance.ToString("0.00") + " %";
-        baseMoveSpeed.text = stats.BaseMoveSpeed.ToString("0.00");
+        // Base stats
+        baseHp.text = stats.Hp.baseValue.ToString();
+        baseDamage.text = stats.Damage.baseValue.ToString();
+        baseAttackSpeed.text = stats.AttackSpeed.baseValue.ToString("0.00");
+        baseCritChance.text = stats.CritChance.baseValue.ToString("0.00") + " %";
+        baseMoveSpeed.text = stats.MoveSpeed.baseValue.ToString("0.00");
+
+        // Item stats (all start at 0)
         itemHp.text = "0";
         itemDamage.text = "0";
         itemAttackSpeed.text = "0.00 %";
         itemCritChance.text = "0.00 %";
         itemMoveSpeed.text = "0.00 %";
-        calcHp.text = stats.GetCalculatedHP().ToString();
-        calcDamage.text = stats.GetCalculatedDamage().ToString();
-        calcAttackSpeed.text = stats.GetCalculatedAttackSpeed().ToString("0.00");
-        calcCritChance.text = stats.GetCalculatedCritChance().ToString("0.00") + " %";
-        calcMoveSpeed.text = stats.GetCalculatedMoveSpeed().ToString("0.00");
+
+        // Calculated stats (base + bonus)
+        calcHp.text = stats.Hp.GetCalculatedValue().ToString();
+        calcDamage.text = stats.Damage.GetCalculatedValue().ToString();
+        calcAttackSpeed.text = stats.AttackSpeed.GetCalculatedValue().ToString("0.00");
+        calcCritChance.text = stats.CritChance.GetCalculatedValue().ToString("0.00") + " %";
+        calcMoveSpeed.text = stats.MoveSpeed.GetCalculatedValue().ToString("0.00");
     }
 
     public void UpdateStatsOnUI(CharacterGameStats stats)
     {
-        itemHp.text = stats.BonusHP.ToString();
-        itemDamage.text = stats.BonusDamage.ToString();
-        itemAttackSpeed.text = stats.BonusAttackSpeed.ToString("0.00") + " %";
-        itemCritChance.text = stats.BonusCritChance.ToString("0.00") + " %";
-        itemMoveSpeed.text = stats.BonusMoveSpeed.ToString("0.00") + " %";
-        calcHp.text = stats.GetCalculatedHP().ToString();
-        calcDamage.text = stats.GetCalculatedDamage().ToString();
-        calcAttackSpeed.text = stats.GetCalculatedAttackSpeed().ToString("0.00");
-        calcCritChance.text = stats.GetCalculatedCritChance().ToString("0.00") + " %";
-        calcMoveSpeed.text = stats.GetCalculatedMoveSpeed().ToString("0.00");
+        // Item stats (bonus values)
+        itemHp.text = stats.Hp.bonusValue.ToString();
+        itemDamage.text = stats.Damage.bonusValue.ToString();
+        itemAttackSpeed.text = stats.AttackSpeed.bonusValue.ToString("0.00") + " %";
+        itemCritChance.text = stats.CritChance.bonusValue.ToString("0.00") + " %";
+        itemMoveSpeed.text = stats.MoveSpeed.bonusValue.ToString("0.00") + " %";
+
+        // Recalculate and display the total stats (base + bonus)
+        calcHp.text = stats.Hp.GetCalculatedValue().ToString();
+        calcDamage.text = stats.Damage.GetCalculatedValue().ToString();
+        calcAttackSpeed.text = stats.AttackSpeed.GetCalculatedValue().ToString("0.00");
+        calcCritChance.text = stats.CritChance.GetCalculatedValue().ToString("0.00") + " %";
+        calcMoveSpeed.text = stats.MoveSpeed.GetCalculatedValue().ToString("0.00");
     }
 }

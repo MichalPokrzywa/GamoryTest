@@ -14,9 +14,9 @@ public class GameplayCanvas : MonoBehaviour
     
     public void InitCanvas(CharacterGameStats stats)
     {
-        hpText.text = $"{stats.GetCalculatedHP()}/{stats.GetCalculatedHP()}";
+        hpText.text = $"{stats.Hp.GetCalculatedValue()}/{stats.Hp.GetCalculatedValue()}";
         waveNumber.text = "Wave 1";
-        timeCharge = 1f/stats.GetCalculatedAttackSpeed();
+        timeCharge = 1f/stats.AttackSpeed.GetCalculatedValue();
     }
 
     public void ChargeAttack()
